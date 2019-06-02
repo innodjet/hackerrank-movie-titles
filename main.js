@@ -16,20 +16,18 @@ fetch(url+'?Title='+title+'&page='+page)
                   // Next if total pages > 1 then we do next loop 
                   // to fetch the data up the end of the pages
                   for (let i = 2; i <= total_pages; i++) {
-                        newFetch (title , i);
+                    newFetch(title , i);
                   };
                   console.log(title_data);
       })
 .catch(error => console.error(error));
 
-function newFetch (fetchTitle , newPage) {
-      fetch(url+'?Title='+fetchTitle+'&page='+newPage)
-      .then(  res  => res.json()) 
-      .then(  data => { // push title to the array,
-                        data.data.forEach(element => {
-                            title_data.push(element.Title) 
-                        });
-              title_data.sort();
-            })
-      .catch(error => console.error(error))
+const newFetch = async (fetchTitle , newPage) => {
+  const rep = await fetch(url+'?Title='+fetchTitle+'&page='+newPage);
+  const data = await rep.json();
+  // push title to the array,
+  data.data.forEach(element => {
+      title_data.push(element.Title) 
+  });
+  title_data.sort();
 }
