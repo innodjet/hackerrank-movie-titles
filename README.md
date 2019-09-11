@@ -1,4 +1,4 @@
-# mini_hackerrank_coding_challenge
+# movie-search
 
  * Fetch JSON DATA using the url provided                       
  * The JSON DATA is divided in multiple page                    
