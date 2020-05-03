@@ -31,7 +31,6 @@ const getMovieTitles = (substr) => {
         console.error(e);
     });
 
-
     const newFetch = (fetchTitle, newPage) => {
         https.get(url+'?Title='+fetchTitle+'&page='+newPage, (res) => {
             res.on('data', (body) => {
