@@ -1,13 +1,14 @@
+
 var https = require('https');
 
 const getMovieTitles = (substr) => {
-   let title = substr , page = 1 , total = '';
-   let total_pages, title_data = [] ,  url = 'https://jsonmock.hackerrank.com/api/movies/search/';
-   https.get(url+'?Title='+title+'&page='+page, (res) => {
+  let title = substr , page = 1, total_pages, title_data = [];
+  let url = 'https://jsonmock.hackerrank.com/api/movies/search/';
+  
+  https.get(url+'?Title='+title+'&page='+page, (res) => {
     res.on('data', (body) => {
         let data = JSON.parse(body);
         total_pages = data.total_pages,
-        total = data.total,
         // push the first page titles to the array
         data.data.forEach(  el => {
             title_data.push(el.Title)
@@ -26,28 +27,27 @@ const getMovieTitles = (substr) => {
         }
         
     });
+  }).on('error', (e) => {
+      console.error(e);
+  });
 
-    }).on('error', (e) => {
-        console.error(e);
-    });
-
-    const newFetch = (fetchTitle, newPage) => {
-        https.get(url+'?Title='+fetchTitle+'&page='+newPage, (res) => {
-            res.on('data', (body) => {
-                let data = JSON.parse(body);
-                // push title to the array
-                data.data.forEach( el => {
-                    title_data.push(el.Title);
-                });
-                title_data.sort();
-                console.log('...................');
-                console.log(title_data.join('\n'));
-                console.log('...................');
-            });
-            }).on('error', (e) => {
-                console.error(e);
-            });
-    }
+  const newFetch = (fetchTitle, newPage) => {
+      https.get(url+'?Title='+fetchTitle+'&page='+newPage, (res) => {
+          res.on('data', (body) => {
+              let data = JSON.parse(body);
+              // push title to the array
+              data.data.forEach( el => {
+                  title_data.push(el.Title);
+              });
+              title_data.sort();
+              console.log('...................');
+              console.log(title_data.join('\n'));
+              console.log('...................');
+          });
+      }).on('error', (e) => {
+          console.error(e);
+      });
+  }
 }
 
 getMovieTitles('spiderman');
