@@ -8,10 +8,10 @@ const getMovieTitles = (substr) => {
   https.get(url+'?Title='+title+'&page='+page, (res) => {
     res.on('data', (body) => {
         let data = JSON.parse(body);
-        total_pages = data.total_pages,
+        total_pages = data.total_pages;
         // push the first page titles to the array
         data.data.forEach(  el => {
-            title_data.push(el.Title)
+            title_data.push(el.Title);
         });
         title_data.sort();
         // Next if total pages > 1 then we do next loop
